@@ -18,8 +18,10 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Post::where('id', $id)->with('user')->get()->first();
+        $post = Post::where('id', $id)->get()->first();
         
-        return view('posts.show', compact('post'));
+        $comments = $post->getComments();
+        
+        return view('posts.show', compact('post','comments'));
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Post extends Model
 {
@@ -15,6 +16,11 @@ class Post extends Model
         'title', 'body', 'user_id',
     ];
 
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y/m/d H:m');;
+    }
+
     /**
      * post author
     */
@@ -25,6 +31,14 @@ class Post extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class, 'post_id');
+    }
+
+    public function getComments()
+    {
+       return $this->comments()
+                    ->with(['user'])
+                    ->orderBy('created_at','DESC')
+                    ->paginate(20);
     }
 }
