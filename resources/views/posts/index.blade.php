@@ -13,7 +13,7 @@
                             <h4>{{$item->title}}</h4>
                         </li>
                         <li class="list-inline-item">
-                            <a href="/{{$item->id}}"><small>Details</small></a>
+                            <a href="{{route('posts.show', $item->id)}}"><small>Details</small></a>
                         </li>
                     </ul>
                     <hr>
