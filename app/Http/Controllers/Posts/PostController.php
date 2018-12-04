@@ -18,6 +18,8 @@ class PostController extends Controller
 
     public function show($id)
     {
+        //$post = Post::with('comments.user')->find($id);
+        
         $post = Post::where('id', $id)->get()->first();
         
         $comments = $post->getComments();

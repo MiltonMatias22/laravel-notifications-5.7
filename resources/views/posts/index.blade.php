@@ -8,14 +8,15 @@
               <div class="card-body">
                 <h4 class="card-title">Posts</h4>
                 @forelse ($posts as $item)
-                    <ul class="list-inline d-flex">
+                    <ul class="list-inline d-flex mb-0">
                         <li class="list-inline-item mr-auto">
-                            <h4>{{$item->title}}</h4>
+                            <h5>{{$item->title}} ({{$item->comments()->count()}})</h5>
                         </li>
                         <li class="list-inline-item">
                             <a href="{{route('posts.show', $item->id)}}"><small>Details</small></a>
                         </li>
                     </ul>
+                    <small>By: {{$item->user->name}}</small>
                     <hr>
                 @empty
                     <p>No Posts!</p>
