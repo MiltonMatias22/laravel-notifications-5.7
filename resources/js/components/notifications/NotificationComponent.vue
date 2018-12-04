@@ -10,8 +10,8 @@
             <div class="dropdown-menu dropdown-menu-right"
                 aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href=""
-                    v-for="n in notifications" :key="n">
-                    {{n}}
+                    v-for="n in notifications" :key="n.id">
+                    {{n.data.comment.post.title}}
                 </a>
             </div>
         </li>
@@ -20,9 +20,26 @@
 
 <script>
     export default {
+        created(){
+            this.loadNotifications()
+        },
         computed: {
             notifications (){
-                return [1,2,3,4];
+                return this.notificationsItems;
+            },
+        },
+        data(){
+            return {
+                notificationsItems: []
+            }
+        },
+        methods: {
+            loadNotifications() {
+                axios.get('/notifications')
+                        .then(response => {
+                           this.notificationsItems =
+                           response.data.notifications;
+                        });
             },
         },
 

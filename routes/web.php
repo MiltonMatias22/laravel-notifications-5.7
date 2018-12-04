@@ -22,3 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/posts', 'Posts\PostController');
 
 Route::post('/comment', 'Posts\CommentController@store')->name('comment.store');
+
+// notifications route
+Route::get('notifications', 'NotificationController@notifications')->name('notifications');

@@ -47306,7 +47306,7 @@ exports = module.exports = __webpack_require__(42)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -47791,9 +47791,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    created: function created() {
+        this.loadNotifications();
+    },
+
     computed: {
         notifications: function notifications() {
-            return [1, 2, 3, 4];
+            return this.notificationsItems;
+        }
+    },
+    data: function data() {
+        return {
+            notificationsItems: []
+        };
+    },
+
+    methods: {
+        loadNotifications: function loadNotifications() {
+            var _this = this;
+
+            axios.get('/notifications').then(function (response) {
+                _this.notificationsItems = response.data.notifications;
+            });
         }
     }
 
@@ -47820,8 +47839,14 @@ var render = function() {
         _vm._l(_vm.notifications, function(n) {
           return _c(
             "a",
-            { key: n, staticClass: "dropdown-item", attrs: { href: "" } },
-            [_vm._v("\n                " + _vm._s(n) + "\n            ")]
+            { key: n.id, staticClass: "dropdown-item", attrs: { href: "" } },
+            [
+              _vm._v(
+                "\n                " +
+                  _vm._s(n.data.comment.post.title) +
+                  "\n            "
+              )
+            ]
           )
         })
       )
