@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Models\Comment;
 
-class PostComment extends Notification
+class PostComment extends Notification implements ShouldQueue
 {
     use Queueable;
 
