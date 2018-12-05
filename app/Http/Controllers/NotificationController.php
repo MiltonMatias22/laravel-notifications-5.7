@@ -26,7 +26,12 @@ class NotificationController extends Controller
                               ->first();
                                    
       if ($notification) {
-         $notification->markAsRead;
+         $notification->markAsRead();
       }                              
+    }
+
+    public function markAllAsRead(Request $request)
+    {
+      $request->user()->unreadNotifications->markAsRead();
     }
 }

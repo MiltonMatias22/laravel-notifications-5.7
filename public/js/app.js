@@ -48218,6 +48218,11 @@ var index_esm = {
 
             // remove item
             state.items.splice(index, 1);
+        },
+
+        // remove all
+        MARK_ALL_AS_READ: function MARK_ALL_AS_READ(state) {
+            state.items = [];
         }
     },
 
@@ -48231,13 +48236,19 @@ var index_esm = {
 
         // mark notification as read
         markAsRead: function markAsRead(context, params) {
-            axios.put('/notification-read', params).then(function (response) {
-                if (response) {
-
-                    context.commit('REMOVE_MARK_AS_READ', params.id);
-                }
-            }, function (error) {
+            axios.put('/notification-read', params).then(function () {
                 context.commit('REMOVE_MARK_AS_READ', params.id);
+            }, function (error) {
+                console.log(error);
+            });
+        },
+
+
+        // mark all notification as read
+        markAllAsRead: function markAllAsRead(context) {
+            axios.put('/notification-all-read').then(function () {
+                return context.commit('MARK_ALL_AS_READ');
+            }, function (error) {
                 console.log(error);
             });
         }
@@ -48834,6 +48845,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
@@ -48849,9 +48865,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         markAsRead: function markAsRead(notificationId) {
             this.$store.dispatch('markAsRead', { id: notificationId });
+        },
+        markAllAsRead: function markAllAsRead() {
+            this.$store.dispatch('markAllAsRead');
         }
     }
-
 });
 
 /***/ }),
@@ -48953,7 +48971,24 @@ var render = function() {
                   )
                 })
               )
-            : _c("div", [_vm._m(0)])
+            : _c("div", [_vm._m(0)]),
+          _vm._v(" "),
+          _c("div", { staticClass: "dropdown-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-danger btn-sm",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.markAllAsRead($event)
+                  }
+                }
+              },
+              [_vm._v("\n                    Clear all\n                ")]
+            )
+          ])
         ]
       )
     ])

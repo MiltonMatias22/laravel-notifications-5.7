@@ -16,6 +16,10 @@ export default {
             // remove item
             state.items.splice(index, 1);
         },
+        // remove all
+        MARK_ALL_AS_READ (state) {
+            state.items = [];
+        },
     },
 
     actions: {
@@ -31,16 +35,22 @@ export default {
         
         // mark notification as read
         markAsRead (context, params) {
-            axios.put('/notification-read', params).then((response) => {
-                    if (response) {
-                        
-                        context.commit('REMOVE_MARK_AS_READ', params.id);
-                    }
-                }, (error) => {
+            axios.put('/notification-read', params).then(() => {
                     context.commit('REMOVE_MARK_AS_READ', params.id);
-                    console.log(error);
-                }
+                }, (error) => {
+                        console.log(error);
+                    }
             );
+        },
+
+        // mark all notification as read
+        markAllAsRead (context){
+            axios.put('/notification-all-read')
+                .then(() => context.commit('MARK_ALL_AS_READ'),
+                    (error) => {
+                        console.log(error);
+                    }
+                );
         },
     },
 }

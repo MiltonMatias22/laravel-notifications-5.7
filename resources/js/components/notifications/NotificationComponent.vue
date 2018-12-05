@@ -34,6 +34,11 @@
                     <i class="fa fa-commenting-o" aria-hidden="true"></i>
                 </small>
                 </div>
+                <div class="dropdown-item">
+                    <a href="#" @click.prevent="markAllAsRead" class="btn btn-danger btn-sm">
+                        Clear all
+                    </a>
+                </div>
             </div>
         </li>
     </div>
@@ -54,8 +59,10 @@
             markAsRead (notificationId) {
                 this.$store.dispatch('markAsRead', {id: notificationId});
             },
-        },
-
+            markAllAsRead (){
+                 this.$store.dispatch('markAllAsRead');
+            },
+        },        
     }
 </script>
 
