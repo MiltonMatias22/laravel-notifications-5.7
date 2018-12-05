@@ -47805,6 +47805,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
@@ -47814,6 +47825,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         notifications: function notifications() {
             return this.$store.state.notifications.items;
+        }
+    },
+
+    methods: {
+        markAsRead: function markAsRead(notificationId) {
+            this.$store.dispatch('markAsRead', { id: notificationId });
         }
     }
 
@@ -47869,32 +47886,75 @@ var render = function() {
           staticClass: "dropdown-menu dropdown-menu-right",
           attrs: { "aria-labelledby": "navbarDropdown" }
         },
-        _vm._l(_vm.notifications, function(n) {
-          return _c(
-            "a",
-            { key: n.id, staticClass: "dropdown-item", attrs: { href: "" } },
-            [
-              _c("small", [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(n.data.comment.user.name) +
-                    " "
-                ),
-                _c("b", [_vm._v("on")]),
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(n.data.comment.post.title) +
-                    "\n                "
-                )
-              ])
-            ]
-          )
-        })
+        [
+          _vm.notifications.length > 0
+            ? _c(
+                "div",
+                _vm._l(_vm.notifications, function(n) {
+                  return _c(
+                    "a",
+                    {
+                      key: n.id,
+                      staticClass: "dropdown-item",
+                      attrs: { href: "#" }
+                    },
+                    [
+                      _c(
+                        "span",
+                        {
+                          attrs: { title: "Mark as read?" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              _vm.markAsRead(n.id)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-check-circle-o text-danger",
+                            attrs: { "aria-hidden": "true" }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("small", [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(n.data.comment.user.name) +
+                            " "
+                        ),
+                        _c("b", [_vm._v("on")]),
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(n.data.comment.post.title) +
+                            "\n                    "
+                        )
+                      ])
+                    ]
+                  )
+                })
+              )
+            : _c("div", [_vm._m(0)])
+        ]
       )
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("small", { staticClass: "dropdown-item" }, [
+      _vm._v("Empty \n                "),
+      _c("i", {
+        staticClass: "fa fa-commenting-o",
+        attrs: { "aria-hidden": "true" }
+      })
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -48903,6 +48963,12 @@ var index_esm = {
             axios.get('/notifications').then(function (response) {
                 context.commit('LOAD_NOTIFICATIONS', response.data.notifications);
             });
+        },
+
+
+        // mark notification as read
+        markAsRead: function markAsRead(context, id) {
+            axios.put('/notification-read', id);
         }
     }
 });

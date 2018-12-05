@@ -16,13 +16,24 @@
 
             <div class="dropdown-menu dropdown-menu-right"
                 aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href=""
-                    v-for="n in notifications" :key="n.id">
-                    <small>
-                        {{n.data.comment.user.name}} <b>on</b>
-                        {{n.data.comment.post.title}}
-                    </small>
-                </a>
+                <div v-if="notifications.length > 0"> 
+                    <a class="dropdown-item" href="#"
+                        v-for="n in notifications" :key="n.id">
+                        <span @click.prevent="markAsRead(n.id)"
+                            title="Mark as read?">
+                            <i class="fa fa-check-circle-o text-danger" aria-hidden="true"></i>
+                        </span> 
+                        <small>
+                            {{n.data.comment.user.name}} <b>on</b>
+                            {{n.data.comment.post.title}}
+                        </small>
+                    </a>
+                </div>
+                <div v-else >
+                    <small class="dropdown-item">Empty 
+                    <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                </small>
+                </div>
             </div>
         </li>
     </div>
@@ -36,6 +47,12 @@
         computed: {
             notifications (){
                 return this.$store.state.notifications.items;
+            },
+        },
+
+        methods: {
+            markAsRead (notificationId) {
+                this.$store.dispatch('markAsRead', {id: notificationId});
             },
         },
 

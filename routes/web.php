@@ -25,3 +25,5 @@ Route::post('/comment', 'Posts\CommentController@store')->name('comment.store');
 
 // notifications route
 Route::get('notifications', 'NotificationController@notifications')->name('notifications');
+// mark notifications as read
+Route::put('notification-read', 'NotificationController@markAsRead');

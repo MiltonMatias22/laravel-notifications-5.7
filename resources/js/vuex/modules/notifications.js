@@ -20,5 +20,10 @@ export default {
                     );
                 });
         },
+
+        // mark notification as read
+        markAsRead (context, id) {
+            axios.put('/notification-read', id)
+        },
     },
 }
