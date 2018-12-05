@@ -70,8 +70,9 @@ class PostComment extends Notification implements ShouldQueue
      */
     public function toDatabase($notifiable)
     {
+        // get comment author
         return [
-            'comment' => $this->comment
+            'comment' => $this->comment->load('user')
         ];
     }
 }

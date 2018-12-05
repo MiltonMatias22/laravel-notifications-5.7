@@ -47306,7 +47306,7 @@ exports = module.exports = __webpack_require__(42)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.item[data-v-45daf660] {\n    position:relative;\n    display:inline-block;\n}\n.notify-badge[data-v-45daf660]{\n    position: absolute;\n    right:-.85rem;\n    top:-.1rem;\n    text-align: center;\n    border-radius: 30%;\n    font-size: .6rem;\n    font-weight: 300;\n}\n", ""]);
 
 // exports
 
@@ -47789,6 +47789,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     created: function created() {
@@ -47828,7 +47838,39 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("li", { staticClass: "nav-item dropdown" }, [
-      _vm._m(0),
+      _c(
+        "a",
+        {
+          staticClass: "nav-link dropdown-toggle",
+          attrs: {
+            id: "navbarDropdown",
+            href: "#",
+            role: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false",
+            "data-placement": "top",
+            title: "Notifications"
+          }
+        },
+        [
+          _c("div", { staticClass: "item" }, [
+            _c("i", { staticClass: "fa fa-bell-o" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "badge badge-warning notify-badge" }, [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(
+                    _vm.notifications.length >= 10
+                      ? "9+"
+                      : "0" + _vm.notifications.length
+                  ) +
+                  "\n                "
+              )
+            ])
+          ])
+        ]
+      ),
       _vm._v(" "),
       _c(
         "div",
@@ -47841,11 +47883,19 @@ var render = function() {
             "a",
             { key: n.id, staticClass: "dropdown-item", attrs: { href: "" } },
             [
-              _vm._v(
-                "\n                " +
-                  _vm._s(n.data.comment.post.title) +
-                  "\n            "
-              )
+              _c("small", [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(n.data.comment.user.name) +
+                    " "
+                ),
+                _c("b", [_vm._v("on")]),
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(n.data.comment.post.title) +
+                    "\n                "
+                )
+              ])
             ]
           )
         })
@@ -47853,31 +47903,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "nav-link dropdown-toggle",
-        attrs: {
-          id: "navbarDropdown",
-          href: "#",
-          role: "button",
-          "data-toggle": "dropdown",
-          "aria-haspopup": "true",
-          "aria-expanded": "false"
-        }
-      },
-      [
-        _vm._v("\n            Notifications "),
-        _c("span", { staticClass: "caret" })
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
