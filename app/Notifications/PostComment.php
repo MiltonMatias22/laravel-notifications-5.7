@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\BroadcastMassage;
 use App\Models\Comment;
 
 class PostComment extends Notification implements ShouldQueue
@@ -31,7 +32,7 @@ class PostComment extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail','database','broadcast'];
     }
 
     /**
@@ -56,11 +57,13 @@ class PostComment extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toBroadcast($notifiable)
     {
-        return [
-            //
-        ];
+        return new BroadcastMassage([
+            'id' => $this->id,
+            'data' => ['comment' => $this->comment->load('user')],
+            'read_at' => null
+        ]);
     }
     /**
      * get the array representation of the notification.

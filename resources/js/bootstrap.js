@@ -49,8 +49,11 @@ import Echo from 'laravel-echo'
 window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
+    authEndpoint : 'http://localhost:8000/broadcasting/auth',
     broadcaster: 'pusher',
     key: window.Laravel.pusher.key,
     cluster: window.Laravel.pusher.cluster,
     encrypted: true
 });
+
+require('./Echo');
