@@ -20,6 +20,11 @@ export default {
         MARK_ALL_AS_READ (state) {
             state.items = [];
         },
+
+        // add notifications
+        ADD_NOTIFICATION (state, notification) {
+            state.items.unshift(notification);
+        },
     },
 
     actions: {
