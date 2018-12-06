@@ -18,6 +18,16 @@
     <style>
         [v-cloak] { display: none }
     </style>
+    <!-- config pusher -->
+    <script>
+        window.Laravel = {!! json_encode([
+            'csrf'      => csrf_token(),
+            'pusher'    => [
+                    'key'       => config('broadcasting.connections.pusher.key'),
+                    'cluster'   => config('broadcasting.connections.pusher.options.cluster'),
+            ]
+        ]) !!}
+    </script>
 </head>
 <body>
     <div id="app" v-cloak>
